@@ -2,13 +2,14 @@
 
 ### Description
 
-ios-asset-converter is a shell script which exports @2x and @1x assets from @3x source files.
+ios-asset-converter is a shell script which exports `@2x` and `@1x` assets from single or multiple (folder) `@3x` source files.
 
 <pre>
-VERSION: 1.0.0
+VERSION: 1.1.0
 
 USAGE:
     ./ios-asset-converter.sh ~/assets
+    ./ios-asset-converter.sh ~/asset.png
 
 DESCRIPTION:
     This script creates assets in @2x, @1x from @3x files
@@ -17,13 +18,6 @@ DESCRIPTION:
       - asset1@3x.png
       - asset2@3x.png
       - ...
-
-AUTHOR:
-    Rafael M.<github@rafaelmaeuer.de>
-
-EXAMPLE:
-    ./ios-asset-converter.sh ~/Development/Project/Assets/Export
-
 </pre>
 
 🚨 Note: bare script -> no error check or anything fancy yet -> use at own risk 🚨
@@ -43,19 +37,18 @@ EXAMPLE:
 3. Run
 
         device:ios-asset-converter$ ./ios-asset-converter ~/assets
-        start
-        process asset1
-        process asset2
-        process asset3
-        process asset4
-        process asset5
-        done
+
+        > Processing start
+        > Input is a directory
+        > Process asset1
+        > Process asset2
+        > Process asset3
+        > Processing done
 
 ### Links
 
 * [batch resize @3x iOS image assets to @2x and @1x](https://gist.github.com/kampfgnu/db8ccbb7c1263aff257af7b50e0b9d4e)
 * [Where is the convert command in macOS?](https://apple.stackexchange.com/questions/335635/where-is-the-convert-command-in-macos)
-
-### License
-
-This script follow MIT license.
+* [Check if passed argument is file or directory in Bash](https://stackoverflow.com/questions/4665051/check-if-passed-argument-is-file-or-directory-in-bash/4665080)
+* [Add text to end of the filename but before extension](https://unix.stackexchange.com/questions/370313/add-text-to-end-of-the-filename-but-before-extension)
+* [Extract filename and extension in Bash](https://stackoverflow.com/questions/965053/extract-filename-and-extension-in-bash)

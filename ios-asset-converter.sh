@@ -6,21 +6,39 @@
 
 set -e
 
-CWD=$1
-cd $CWD
-echo "start"
+ARG=$1
 
-for f in "${CWD}"/*; do
-
-  if [[ $f == *@3x* ]];
-    File=${f%%+(/)}    # trim however many trailing slashes exist
-    FileName=${File##*/}
-    echo "process $FileName"
-    then
+function process() {
+  f=$1
+  File=${f%%+(/)}    # trim however many trailing slashes exist
+  FileName=${File##*/}
+  FileExt=${FileName##*.}
+  Size="@3x"
+  if [[ "$f" == *"$Size"* ]]; then
+    echo "Process $FileName"
     convert "$f" -resize 66.6% "${f//@3x/@2x}"
     convert "$f" -resize 33.3% "${f//@3x/}"
+  else echo "Adding suffix ${Size} to ${FileName}"
+    NewFile="${f%.${FileExt}}${Size}.${FileExt}"
+    mv -- "$f" "${NewFile}"
+    process $NewFile
   fi
+}
 
-done
+echo "Processing start"
 
-echo "done"
+if [ -d "${ARG}" ]
+  then echo "Input is a directory"
+  cd $ARG
+
+  for f in "${ARG}"/*; do
+    process $f
+  done
+elif [ -f "${ARG}" ]
+  then echo "Input is a file"
+  process $ARG
+else echo "Input is not valid"
+  exit 1
+fi
+
+echo "Processing done"
